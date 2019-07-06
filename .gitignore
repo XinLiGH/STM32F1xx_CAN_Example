@@ -1,0 +1,16 @@
+# User files
+*.uvguix.*
+
+# Build files
+*.axf
+*.bin
+*.crf
+*.d
+*.dep
+*.hex
+*.htm
+*.lnp
+*.o
+*.sct
+*.map
+*.lst
