@@ -57,25 +57,25 @@ static void SystemClock_Config(void);
   */
 int main(void)
 {
-  /* Configure the system clock to 72 MHz */
+  /* Configure the system clock to 72MHz. */
   SystemClock_Config();
   SystemCoreClockUpdate();
 
-  /* Add your application code here */
+  /* Add your application code here. */
   CAN_Configure(CAN1, CAN_WorkModeLoopBack, CAN_BaudRate250K, 0xAA55, 0x55AA);
 
 #ifdef RTE_CMSIS_RTOS2
-  /* Initialize CMSIS-RTOS2 */
+  /* Initialize CMSIS-RTOS2. */
   osKernelInitialize();
 
-  /* Create thread functions that start executing, 
-  Example: osThreadNew(app_main, NULL, NULL); */
+  /* Create thread functions that start executing,
+     Example: osThreadNew(app_main, NULL, NULL). */
 
-  /* Start thread execution */
+  /* Start thread execution. */
   osKernelStart();
 #endif
 
-  /* Infinite loop */
+  /* Infinite loop. */
   while(1)
   {
     canTxMsg.StdId = 0xAA55;
@@ -103,38 +103,38 @@ int main(void)
 
 /**
   * @brief  System Clock Configuration.
-  *         The system Clock is configured as follow : 
-  *            System Clock source            = PLL (HSE)
-  *            SYSCLK(Hz)                     = 72000000
-  *            HCLK(Hz)                       = 72000000
-  *            AHB Prescaler                  = 1
-  *            APB1 Prescaler                 = 2
-  *            APB2 Prescaler                 = 1
-  *            HSE Frequency(Hz)              = 8000000
-  *            HSE PREDIV1                    = 1
-  *            PLLMUL                         = 9
-  *            Flash Latency(WS)              = 2
+  *         The system clock is configured as follow:
+  *         System Clock Source = PLL(HSE)
+  *         SYSCLK(Hz)          = 72000000
+  *         HCLK(Hz)            = 72000000
+  *         AHB Prescaler       = 1
+  *         APB1 Prescaler      = 2
+  *         APB2 Prescaler      = 1
+  *         HSE Frequency(Hz)   = 8000000
+  *         HSE PREDIV1         = 1
+  *         PLLMUL              = 9
+  *         Flash Latency(WS)   = 2
   * @param  None.
   * @return None.
   */
 static void SystemClock_Config(void)
 {
-  /* SYSCLK, HCLK, PCLK2 and PCLK1 configuration */
-  /* RCC system reset */
+  /* SYSCLK, HCLK, PCLK2 and PCLK1 configuration. */
+  /* RCC system reset. */
   RCC_DeInit();
   
-  /* Enable HSE */
+  /* Enable HSE. */
   RCC_HSEConfig(RCC_HSE_ON);
   
-  /* Wait till HSE is ready */
+  /* Wait till HSE is ready. */
   ErrorStatus HSEStartUpStatus = RCC_WaitForHSEStartUp();
   
   if(HSEStartUpStatus == SUCCESS)
   {
-    /* Enable Prefetch Buffer */
+    /* Enable prefetch buffer. */
     FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);
     
-    /* Flash 2 wait state */
+    /* Flash 2 wait state. */
     FLASH_SetLatency(FLASH_Latency_2);
     
     /* HCLK = SYSCLK */
@@ -146,19 +146,19 @@ static void SystemClock_Config(void)
     /* PCLK1 = HCLK / 2 */
     RCC_PCLK1Config(RCC_HCLK_Div2);
 
-    /* Configure PLLs */
+    /* Configure PLLs. */
 #ifdef STM32F10X_CL
-    /* PLL2 configuration: PLL2CLK = (HSE(8MHz) / 2) * 10 = 40MHz */
+    /* PLL2 configuration: PLL2CLK = (HSE(8MHz) / 2) * 10 = 40MHz. */
     RCC_PREDIV2Config(RCC_PREDIV2_Div2);
     RCC_PLL2Config(RCC_PLL2Mul_10);
     
-    /* Enable PLL2 */
+    /* Enable PLL2. */
     RCC_PLL2Cmd(ENABLE);
     
-    /* Wait till PLL2 is ready */
+    /* Wait till PLL2 is ready. */
     while(RCC_GetFlagStatus(RCC_FLAG_PLL2RDY) == RESET);
     
-    /* PLL configuration: PLLCLK = (PLL2(40MHz) / 5) * 9 = 72MHz */
+    /* PLL configuration: PLLCLK = (PLL2(40MHz) / 5) * 9 = 72MHz. */
     RCC_PREDIV1Config(RCC_PREDIV1_Source_PLL2, RCC_PREDIV1_Div5);
     RCC_PLLConfig(RCC_PLLSource_PREDIV1, RCC_PLLMul_9);
 #else
@@ -166,30 +166,30 @@ static void SystemClock_Config(void)
     RCC_PLLConfig(RCC_PLLSource_HSE_Div1, RCC_PLLMul_9);
 #endif
 
-    /* Enable PLL */
+    /* Enable PLL. */
     RCC_PLLCmd(ENABLE);
     
-    /* Wait till PLL is ready */
+    /* Wait till PLL is ready. */
     while(RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET);
     
-    /* Select PLL as system clock source */
+    /* Select PLL as system clock source. */
     RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
     
-    /* Wait till PLL is used as system clock source */
+    /* Wait till PLL is used as system clock source. */
     while(RCC_GetSYSCLKSource() != 0x08);
   }
   else
   {
-    /* Disable HSE */
+    /* Disable HSE. */
     RCC_HSEConfig(RCC_HSE_OFF);
     
-    /* Enable HSI */
+    /* Enable HSI. */
     RCC_HSICmd(ENABLE);
     
-    /* Enable Prefetch Buffer */
+    /* Enable prefetch buffer. */
     FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);
     
-    /* Flash 1 wait state */
+    /* Flash 1 wait state. */
     FLASH_SetLatency(FLASH_Latency_1);
     
     /* HCLK = SYSCLK */
@@ -201,20 +201,20 @@ static void SystemClock_Config(void)
     /* PCLK1 = HCLK */
     RCC_PCLK1Config(RCC_HCLK_Div1);
     
-    /* Configure PLLs */
+    /* Configure PLLs. */
     /* PLLCLK = HSI(8MHz) / 2 * 9 = 36MHz */
     RCC_PLLConfig(RCC_PLLSource_HSI_Div2, RCC_PLLMul_9);
     
-    /* Enable PLL */
+    /* Enable PLL. */
     RCC_PLLCmd(ENABLE);
     
-    /* Wait till PLL is ready */
+    /* Wait till PLL is ready. */
     while(RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET);
     
-    /* Select PLL as system clock source */
+    /* Select PLL as system clock source. */
     RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
     
-    /* Wait till PLL is used as system clock source */
+    /* Wait till PLL is used as system clock source. */
     while(RCC_GetSYSCLKSource() != 0x08);
   }
 }
@@ -222,17 +222,17 @@ static void SystemClock_Config(void)
 #ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
-  *         where the assert_param error has occurred.
-  * @param  file: pointer to the source file name.
-  * @param  line: assert_param error line source number.
+  *         where the assert error has occurred.
+  * @param  file: Pointer to the source file name.
+  * @param  line: Assert error line source number.
   * @return None.
   */
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line). */
   
-  /* Infinite loop */
+  /* Infinite loop. */
   while(1)
   {
   }
