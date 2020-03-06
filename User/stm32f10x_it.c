@@ -140,7 +140,7 @@ void PendSV_Handler(void)
 
 #ifndef RTE_CMSIS_RTOS2_RTX5
 /**
-  * @brief  This function handles SysTick Handler.
+  * @brief  This function handles SysTick handler.
   * @param  None.
   * @return None.
   */

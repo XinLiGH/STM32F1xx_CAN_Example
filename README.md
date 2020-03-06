@@ -15,7 +15,7 @@ STM32F1 的 CAN 驱动程序。适用于 STM32F1 全部芯片。
 * void CAN_Unconfigure(CAN_TypeDef *CANx)
 * void CAN_SetTransmitFinishCallback(CAN_TypeDef *CANx, void (*Callback)(void))
 * void CAN_SetReceiveFinishCallback(CAN_TypeDef *CANx, void (*Callback)(void))
-* uint32_t CAN_SetTransmitMessage(CAN_TypeDef *CANx, CanTxMsg *Message, uint32_t Number)
+* uint32_t CAN_SetTransmitMessage(CAN_TypeDef *CANx, const CanTxMsg *Message, uint32_t Number)
 * uint32_t CAN_GetReceiveMessage(CAN_TypeDef *CANx, CanRxMsg *Message, uint32_t Number)
 * uint32_t CAN_GetUsedTransmitBufferSize(CAN_TypeDef *CANx)
 * uint32_t CAN_GetUsedReceiveBufferSize(CAN_TypeDef *CANx)

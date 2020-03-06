@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    CAN.c
   * @author  XinLi
-  * @version v1.0
+  * @version v1.1
   * @date    24-June-2018
   * @brief   CAN module driver.
   ******************************************************************************
@@ -386,7 +386,7 @@ void CAN_SetReceiveFinishCallback(CAN_TypeDef *CANx, void (*Callback)(void))
   * @param  [in] Number:  The number of the message to be transmit.
   * @return The number of message transmit.
   */
-uint32_t CAN_SetTransmitMessage(CAN_TypeDef *CANx, CanTxMsg *Message, uint32_t Number)
+uint32_t CAN_SetTransmitMessage(CAN_TypeDef *CANx, const CanTxMsg *Message, uint32_t Number)
 {
   if(CANx == CAN1)
   {
@@ -795,7 +795,7 @@ bool CAN_IsTransmitMessage(CAN_TypeDef *CANx)
 }
 
 /**
-  * @brief  This function handles CAN1 TX Handler.
+  * @brief  This function handles CAN1 TX handler.
   * @param  None.
   * @return None.
   */
@@ -829,7 +829,7 @@ void USB_HP_CAN1_TX_IRQHandler(void)
 }
 
 /**
-  * @brief  This function handles CAN1 RX0 Handler.
+  * @brief  This function handles CAN1 RX0 handler.
   * @param  None.
   * @return None.
   */
@@ -860,7 +860,7 @@ void USB_LP_CAN1_RX0_IRQHandler(void)
 
 #ifdef STM32F10X_CL
 /**
-  * @brief  This function handles CAN2 TX Handler.
+  * @brief  This function handles CAN2 TX handler.
   * @param  None.
   * @return None.
   */
@@ -890,7 +890,7 @@ void CAN2_TX_IRQHandler(void)
 }
 
 /**
-  * @brief  This function handles CAN2 RX0 Handler.
+  * @brief  This function handles CAN2 RX0 handler.
   * @param  None.
   * @return None.
   */

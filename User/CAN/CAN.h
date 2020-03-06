@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    CAN.h
   * @author  XinLi
-  * @version v1.0
+  * @version v1.1
   * @date    24-June-2018
   * @brief   Header file for CAN.c module.
   ******************************************************************************
@@ -107,7 +107,7 @@ void CAN_Unconfigure(CAN_TypeDef *CANx);
 void CAN_SetTransmitFinishCallback(CAN_TypeDef *CANx, void (*Callback)(void));
 void CAN_SetReceiveFinishCallback(CAN_TypeDef *CANx, void (*Callback)(void));
 
-uint32_t CAN_SetTransmitMessage(CAN_TypeDef *CANx, CanTxMsg *Message, uint32_t Number);
+uint32_t CAN_SetTransmitMessage(CAN_TypeDef *CANx, const CanTxMsg *Message, uint32_t Number);
 uint32_t CAN_GetReceiveMessage(CAN_TypeDef *CANx, CanRxMsg *Message, uint32_t Number);
 
 uint32_t CAN_GetUsedTransmitBufferSize(CAN_TypeDef *CANx);
